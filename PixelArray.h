@@ -12,6 +12,7 @@ class  CRoutine;
 class CPixelArray
 {
     public:
+        static constexpr size_t c_max_num_legs   = 1;
         static constexpr size_t c_alloc_qty      = 4;
 
     public:

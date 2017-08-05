@@ -3,6 +3,8 @@
 #include "FastLED.h"
 #include "RoutineFire.h"
 
+#include <string.h>
+
 CMemoryPool<CBike, 1>  CBike::s_pool;
 CBike::BikeConfig CBike::s_config;
 

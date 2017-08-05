@@ -30,8 +30,6 @@ void CBixiQuickCG::Show(CPixelArray* pixels)
     {
         CRGB                    rgb   = pixels->GetPixel(i);
         CPixelArray::Coordinate coord = pixels->GetCoordinate(i);
-        printf("MILES_DEBUG: pixel %u color %u %u %u coord %f %f\n",
-                i, rgb.r, rgb.g, rgb.b, coord.x, coord.y);
 
         size_t x = ((coord.x + 1.0) / 2) * c_pixels_x;
         size_t y = ((2.0 - (coord.y + 1.0)) / 2) * c_pixels_y;

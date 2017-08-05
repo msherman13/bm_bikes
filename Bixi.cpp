@@ -23,8 +23,6 @@ CBixi::CBixi()
     CLogging::log("CBixi::CBixi: Geometry = GEOM_BIKE");
     m_geometry = new CBike();
 
-    printf("MILES_DEBUG: coord of %u is %f\n", 5, m_geometry->GetCoordinate(5).y);
-
     m_show = new CPixelArray(*m_geometry);
 
     // Parallel Output
