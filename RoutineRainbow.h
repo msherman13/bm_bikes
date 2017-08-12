@@ -10,6 +10,7 @@ class CRoutineRainbow : public CRoutine
 {
     public:
         static constexpr size_t c_alloc_qty           = 1;
+        static constexpr size_t c_spacing             = 4;
 
     public:
         CRoutineRainbow(CPixelArray* pixels);
@@ -22,6 +23,8 @@ class CRoutineRainbow : public CRoutine
     private:
         size_t            m_start    = 0;
         unsigned long int m_last_run = 0;
+        unsigned long int m_last_color = 0;
+        CRGB              m_color    = 0;
 
     private:
         static CMemoryPool<CRoutineRainbow, c_alloc_qty> s_pool;

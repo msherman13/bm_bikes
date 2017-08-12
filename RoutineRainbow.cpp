@@ -6,6 +6,7 @@
 #include "FastLED.h"
 #include "Arduino.h"
 #include "Logging.h"
+#include "ColorPallete.h"
 
 CMemoryPool<CRoutineRainbow, CRoutineRainbow::c_alloc_qty> CRoutineRainbow::s_pool;
 
@@ -16,8 +17,14 @@ CRoutineRainbow::CRoutineRainbow(CPixelArray* pixels) :
 
     for(size_t i=0;i<GetSize();i++)
     {
-        CHSV color(((float)i / (GetSize()-1)) * 255, 255, 255);
-        SetPixel(i, color);
+        if(i % c_spacing == 0)
+        {
+            SetPixel(i, ColorPallete::Mint);
+        }
+        else
+        {
+            SetPixel(i, CRGB::Black);
+        }
     }
 }
 
@@ -29,9 +36,15 @@ void CRoutineRainbow::Continue()
 {
     unsigned long now = millis();
 
-    if(now - m_last_run < 30)
+    if(now - m_last_run < 100)
     {
         return;
+    }
+
+    if(now - m_last_color >= 20000)
+    {
+        m_color = ColorPallete::s_colors[rand() % ColorPallete::Qty];
+        m_last_color = now;
     }
 
     m_last_run = now;
@@ -39,7 +52,13 @@ void CRoutineRainbow::Continue()
 
     for(size_t i=0;i<GetSize();i++)
     {
-        CHSV color(((float)((i+m_start) % GetSize()) / (GetSize()-1)) * 255, 255, 255);
-        SetPixel(i, color);
+        if((i + m_start % GetSize()) % c_spacing == 0)
+        {
+            SetPixel(i, m_color);
+        }
+        else
+        {
+            SetPixel(i, CRGB::Black);
+        }
     }
 }
