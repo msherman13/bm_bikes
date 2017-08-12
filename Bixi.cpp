@@ -23,12 +23,10 @@ CBixi::CBixi()
     CLogging::log("CBixi::CBixi: Geometry = GEOM_BIKE");
     m_geometry = new CBike();
 
-    m_show = new CPixelArray(*m_geometry);
-
     // Parallel Output
-    LEDS.addLeds<WS2813_PORTD>(m_show->GetRaw(), m_show->GetRawSize());
+    LEDS.addLeds<WS2812B, c_data_pin, GRB>(m_geometry->GetRaw(), m_geometry->GetSize());
 
-    char logstr[256];
+    char logstr[128];
     sprintf(logstr, "CBixi::CBixi: Initial allocations complete, %u byte remaining", FreeRam());
     CLogging::log(logstr);
 }
@@ -37,41 +35,23 @@ CBixi::~CBixi()
 {
     CLogging::log("CBixi::~CBixi: Destructing");
 
-    ShutDown();
-
     delete m_geometry;
 }
 
 void CBixi::Show(CPixelArray* pixels)
 {
-    for(size_t i=0;i<pixels->GetSize();i++)
-    {
-        m_show->SetPixel(i, pixels->GetPixel(i));
-    }
-
     LEDS.show();
 }
 
 void CBixi::Continue()
 {
-    s_iteration++;
+    unsigned long now = millis();
 
-    size_t now = millis();
+    s_iteration++;
 
     m_geometry->Continue();
 
     Show(m_geometry);
-
-    FastLED.countFPS();
-
-    static size_t last_log = 0;
-    if(now - last_log >= 10000)
-    {
-        last_log = now;
-        char logString[128];
-        sprintf(logString, "CBixi::Continue: Frame rate for last 10 seconds is %u", FastLED.getFPS());
-        CLogging::log(logString);
-    }
 
     if(now - m_lastIndicator >= c_indicatorDelayMs)
     {

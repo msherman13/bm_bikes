@@ -1,22 +1,16 @@
 #include "Bike.h"
 #include "Logging.h"
 #include "FastLED.h"
-#include "RoutineFire.h"
+#include "RoutineRainbow.h"
 
 #include <string.h>
 
-CMemoryPool<CBike, 1>  CBike::s_pool;
-CBike::BikeConfig CBike::s_config;
-
-CPixelArray::Coordinate CBike::BikeConfig::GetCoordinate(size_t index)
-{
-    return CPixelArray::Coordinate(0.0, (float)index / m_logical_size);
-}
+CMemoryPool<CBike, CBike::c_alloc_qty>                CBike::s_pool;
 
 CBike::CBike() :
-    CPixelArray("Bike", &s_config)
+    CPixelArray()
 {
-    SetRoutine(new CRoutineFire(this));
+    SetRoutine(new CRoutineRainbow(this));
 }
 
 CBike::~CBike()

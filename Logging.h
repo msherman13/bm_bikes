@@ -5,7 +5,7 @@
 class CLogging
 {
     public:
-        static const int c_initTimeoutMs = 1000;
+        static const unsigned long c_initTimeoutMs = 10000;
 
     public:
         static void Init();

@@ -9,9 +9,6 @@ void setup()
 }
 
 void loop()
-{ 
-    while(!CBixi::Instance().ShuttingDown())
-    {
-        CBixi::Instance().Continue();
-    }
+{
+    CBixi::Instance().Continue();
 }  

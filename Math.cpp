@@ -1,5 +1,5 @@
 #include "Math.h"
-#include <cmath>
+#include <math.h>
 
 // see https://en.wikipedia.org/wiki/Exponentiation_by_squaring
 float Math::exp_by_squaring(float x, uint32_t n)

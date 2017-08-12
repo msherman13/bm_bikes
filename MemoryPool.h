@@ -32,7 +32,7 @@ template <typename T, size_t QTY> class CMemoryPool
                 return reinterpret_cast<T*>(m_blocks[i]);
             }
 
-            char logstr[256];
+            char logstr[128];
             sprintf(logstr, "CMemoryPool::alloc: ERROR: pool is empty");
             CLogging::log(logstr);
 
@@ -52,7 +52,7 @@ template <typename T, size_t QTY> class CMemoryPool
 
                 if(m_in_use[i] == false)
                 {
-                    char logstr[256];
+                    char logstr[128];
                     sprintf(logstr, "CMemoryPool::free: WARN: double-free");
                     CLogging::log(logstr);
                 }
@@ -61,7 +61,7 @@ template <typename T, size_t QTY> class CMemoryPool
                 return;
             }
 
-            char logstr[256];
+            char logstr[128];
             sprintf(logstr, "CMemoryPool::free: ERROR: could not find memory block");
             CLogging::log(logstr);
         }

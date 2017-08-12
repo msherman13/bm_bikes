@@ -5,7 +5,7 @@
 void CLogging::Init()
 {
     Serial.begin(9600);
-    int startMillis = millis();
+    unsigned long startMillis = millis();
     while(!Serial && millis() - startMillis < c_initTimeoutMs)
     {
         ;
@@ -19,7 +19,7 @@ void CLogging::log(const char* buff)
     if(!Serial)
         return;
 
-    char logstr[512];
+    char logstr[128];
     sprintf(logstr, "[%lu (%u)]: %s", millis(), CBixi::Iteration(), buff);
 
     Serial.println(logstr);
